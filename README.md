@@ -3,7 +3,7 @@
 <p align="center">
     <a href="https://www.vrisini.de"><img src="https://img.shields.io/badge/vrisini-maintained-blue" alt="Vrisini Infotech LLP"></a>
     <a href="https://github.com/vrisiniinfotech/contao-onepage-bundle"><img src="https://img.shields.io/badge/license-LGPL--3.0-blue"/></a>
-    <a href="https://packagist.org/packages/vrisiniinfotech/contao-onepage-bundle"><img src="https://img.shields.io/packagist/dt/vrisiniinfotech/contao-onepage-bundle?color=23316f&style=flat-square"/></a>
+    <a href="https://packagist.org/packages/vrisiniinfotech/contao-onepage-bundle"><img src="https://img.shields.io/packagist/dt/vrisiniinfotech/contao-onepage-bundle?color=1F80C1&style=flat-square"/></a>
 </p>
 <br/>
 
