@@ -1,0 +1,12 @@
+<nav class="navbar second navbar-expand-lg navbar-light">
+	<button class="navbar-toggler mx-auto mt-lg-0 mt-sm-4" type="button" data-toggle="collapse"
+		data-target=".navbar-toggle" aria-controls="navbarNavAltMarkup1" aria-expanded="false"
+		aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse navbar-toggle" id="navbarNavAltMarkup1">
+		<div class="navbar-nav secondfix ml-lg-auto">
+		  <?= $this->items ?>
+		</div>
+	</div>
+</nav>

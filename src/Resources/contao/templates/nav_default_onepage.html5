@@ -1,0 +1,42 @@
+<?php if ($this->level != "level_2"): ?>
+			<ul class="navbar-nav text-center">
+				<?php foreach ($this->items as $item): ?>
+					<?php if ($item['isActive']): ?>
+						<?php if (! preg_match("/submenu/", $item['class'])): ?>
+							<li class="nav-item active  mr-lg-3">
+								<a class="nav-link" href="index.html#<?= $item['alias'] ?: './' ?>"><?= $item['link'] ?></a>
+							</li>
+							<?php else: ?>
+							 
+							<li class="nav-item dropdown mr-lg-3">
+								<a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $item['link'] ?></a><?= $item['subitems'] ?>
+							
+							<?php endif; ?>
+							
+							
+							<?php else: ?>
+							
+							<?php if (! preg_match("/submenu/", $item['class'])): ?>
+								<li class="nav-item mr-lg-3 ">
+									<a href="index.html#<?= $item['alias'] ?: './' ?>" class="nav-link scroll"><?= $item['link'] ?></a>
+								</li>
+							<?php else: ?>
+								<li class="nav-item dropdown mr-lg-3 ">
+									<a href="javascript:void(0);" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $item['link'] ?></a>
+									<?= $item['subitems'] ?>
+								</li>
+						
+						<?php endif; ?>
+					
+					<?php endif; ?>
+				<?php endforeach; ?>
+			</ul>
+<?php endif; ?>
+<?php if ($this->level == "level_2"): ?>
+	 <div class="dropdown-menu text-lg-left text-center" aria-labelledby="navbarDropdown">
+		<?php foreach ($this->items as $item): ?>
+			<a class="dropdown-item nav-link scroll" href="index.html#<?= $item['alias'] ?: './' ?>"><?= $item['link'] ?></a>
+		<?php endforeach; ?>
+	</div>
+
+<?php endif; ?>

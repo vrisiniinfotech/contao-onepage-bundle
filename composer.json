@@ -1,0 +1,17 @@
+{
+    "name": "vrisiniinfotech/contao-onepage-bundle",
+    "description": "Convert a multisite website to onepage in an instant. Easy customizable options.",
+    "type": "contao-bundle",
+    "license": "LGPL-3.0-or-later",
+    "require": {
+        "contao/core-bundle": "^4.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Vrisiniinfotech\\ContaoOnepageBundle\\": "src/"
+        }
+    },
+    "extra": {
+        "contao-manager-plugin": "Vrisiniinfotech\\ContaoOnepageBundle\\ContaoManager\\Plugin"
+    }
+}
