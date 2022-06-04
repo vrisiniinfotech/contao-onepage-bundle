@@ -12,6 +12,7 @@
 - We deliberately kept it to 4.4 because there might still be several older websites who want to have a one page theme on their existing website.
 
 ### Features
+- This can render the <b>main articles</b> of all pages and their subpages!
 - Renders page articles at 'n-th' level of site-structure.
 - No template integration required.
 - No additional JS required.
@@ -26,13 +27,5 @@
 
 <br>
 
----
-
-> ### 🚫
-> This can render the <b>main articles</b> of all pages and their subpages!
-
----
-
-> ### ⚖️
-> This is a continuous work in progress. We cannot guarantee perfect rendering. If you have any issues, please feel free to contact us. Your feedback is important to us!
-as
+### Support & Maintenance
+This is a continuous work in progress. We cannot guarantee perfect rendering. If you have any issues, please feel free to contact us. Your feedback is important to us!
