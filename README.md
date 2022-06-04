@@ -7,22 +7,22 @@
 </p>
 <br/>
 
+### Supports
+- Contao 4.4.x and above
+- We deliberately kept it to 4.4 because there might still be several older websites who want to have a one page theme on their existing website.
+
 ### Features
 - Renders page articles at 'n-th' level of site-structure.
 - No template integration required.
 - No additional JS required.
 - No configuration required.
 
-### Documentation
-- Installation
+### Installation
+- Use Contao-Manager for installation of this bundle
+- Alternately, you can download this bundle and manually install at your own risk.
 
-### Contributing
-To build JavaScript and CSS files the following commands can be used:
-```npm
-npm install
-npm run-script buildjs
-npm run-script buildcss
-```
+### Navigation templates
+![](docs/navigation-templates.png)
 
 <br>
 
@@ -35,3 +35,4 @@ npm run-script buildcss
 
 > ### ⚖️
 > This is a continuous work in progress. We cannot guarantee perfect rendering. If you have any issues, please feel free to contact us. Your feedback is important to us!
+as
