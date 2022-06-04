@@ -22,6 +22,11 @@
 - Use Contao-Manager for installation of this bundle
 - Alternately, you can download this bundle and manually install at your own risk.
 
+### Pre-requisite
+jQuery is required for the navigation smooth scrolling. 
+Hence, please include jQuery to your layout as shown below
+![](docs/prerequisite-jquery.png)
+
 ### Navigation templates
 ![](docs/navigation-templates.png)
 
