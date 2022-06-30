@@ -25,10 +25,10 @@ class OnePageAssorter
 		$GLOBALS['TL_BODY'][] = '<script src="bundles/vionepage/js/vi-onepage-nav.js"></script>';
 		
 		// Assort all articles
-		$xT = $this->getPageArticles($pageId, $column);
+		$pageArticles = $this->getPageArticles($pageId, $column);
 		
 		// Return the final buffer
-		return self::$strBuffer;
+		return $pageArticles;
 	}
 	
 	/**
@@ -40,39 +40,44 @@ class OnePageAssorter
 	 *
 	 * @return String
 	 */
-	protected function getPageArticles($pageId, $column){		
+	protected function getPageArticles($pageId, $column){
+		$pageArticles = '';		
 		// Find the initial page
 		$objPage = \PageModel::findById($pageId);
-		$objOtherPages = \Database::getInstance()->prepare("SELECT * FROM tl_page WHERE pid=? AND type='regular'")->execute($objPage->pid);
+		$objOtherPages = \Database::getInstance()->prepare("SELECT * FROM tl_page WHERE pid=? AND type='regular' AND hide_in_onepage=''")->execute($objPage->pid);
 		if($objOtherPages->numRows){
 			while($objOtherPages->next()){ // Iteration for page
 				$htmlPageArticles = '';
 				$objArticles = \ArticleModel::findPublishedByPidAndColumn($objOtherPages->id, $column);
-				foreach($objArticles as $objArticle){ // Iteration for article
-					$arrayArticleContent = [];
-					// Create template object
-					$objArticleTemplate = new \FrontendTemplate(($objArticle->customTpl ? $objArticle->customTpl : 'mod_article'));
-					$arrayArticleCssId = unserialize($objArticle->cssID);
-					$objArticleTemplate->cssID = ($arrayArticleCssId[0] ? 'id="' . $arrayArticleCssId[0] . '"' : '');
-					$objArticleTemplate->class = $arrayArticleCssId[1];
-					
-					// Find article contents
-					$objContents = \ContentModel::findPublishedByPidAndTable($objArticle->id, 'tl_article');
-					foreach($objContents as $objContent){ // Iteration for content
-							$objRowTemp = \ContentModel::findByPk($objContent->id);
-							$strClass = \ContentElement::findClass($objContent->type);
-							$objElementTemp = new $strClass($objRowTemp, 'main');
-							$arrayArticleContent[] = $objElementTemp->generate();					
+				if($objArticles){
+					foreach($objArticles as $objArticle){ // Iteration for article
+						$arrayArticleContent = [];
+						// Create template object
+						$objArticleTemplate = new \FrontendTemplate(($objArticle->customTpl ? $objArticle->customTpl : 'mod_article'));
+						$arrayArticleCssId = unserialize($objArticle->cssID);
+						$objArticleTemplate->cssID = ($arrayArticleCssId[0] ? 'id="' . $arrayArticleCssId[0] . '"' : '');
+						$objArticleTemplate->class = $arrayArticleCssId[1];
+						
+						// Find article contents
+						$objContents = \ContentModel::findPublishedByPidAndTable($objArticle->id, 'tl_article');
+						if($objContents){
+							foreach($objContents as $objContent){ // Iteration for content
+									$objRowTemp = \ContentModel::findByPk($objContent->id);
+									$strClass = \ContentElement::findClass($objContent->type);
+									$objElementTemp = new $strClass($objRowTemp, 'main');
+									$arrayArticleContent[] = $objElementTemp->generate();					
+							}
+							$objArticleTemplate->elements = $arrayArticleContent;
+							$htmlPageArticles .= $objArticleTemplate->parse();
+						}
 					}
-					$objArticleTemplate->elements = $arrayArticleContent;
-					$htmlPageArticles .= $objArticleTemplate->parse();
+					$pageArticles .= '<section id="' . $objOtherPages->alias . '">' . $htmlPageArticles . '</section>';
 				}
-				self::$strBuffer .= '<section id="' . $objOtherPages->alias . '">' . $htmlPageArticles . '</section>';
 				
 				// Assort child pages after current page - Recursion!
 				$objChildPage = \PageModel::findByPid($objOtherPages->id);
-				if($objChildPage){
-					$xT = $this->getPageArticles($objChildPage->id, $column);
+				if($objChildPage && $oobjChildPage->hide_from_onepage == ''){
+					$pageArticles .= $this->getPageArticles($objChildPage->id, $column);
 				}
 			}
 		}

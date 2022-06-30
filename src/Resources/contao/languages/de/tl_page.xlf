@@ -1,0 +1,14 @@
+<?xml version="1.0" ?><xliff version="1.1">
+  <file datatype="php" original="src/Resources/contao/languages/en/tl_page.php" source-language="en" target-language="de">
+    <body>      
+      <trans-unit id="tl_page.hide_in_onepage.0">
+        <source>Hide page in frontend</source>
+        <target>Seite im Frontend verstecken</target>
+      </trans-unit>
+      <trans-unit id="tl_page.hide_in_onepage.1">
+        <source>Hide the page contents from the one-page website.</source>
+        <target>Blenden Sie die Seiteninhalte der einseitigen Website aus.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
