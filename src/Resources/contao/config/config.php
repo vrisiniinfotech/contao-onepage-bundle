@@ -13,3 +13,4 @@ use Vrisiniinfotech\ContaoOnepageBundle\Hooks\OnePageAssorter;
  */
 $GLOBALS['TL_HOOKS']['getArticles'][] = array(OnePageAssorter::class, 'getMyArticles');
 $GLOBALS['TL_HOOKS']['parseTemplate'][] = array(OnePageAssorter::class, 'replaceNavTemplates');
+$GLOBALS['TL_HOOKS']['getSearchablePages'][] = array(OnePageAssorter::class, 'getSearchablePages');

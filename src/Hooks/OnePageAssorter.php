@@ -44,11 +44,11 @@ class OnePageAssorter
 		$pageArticles = '';		
 		// Find the initial page
 		$objPage = \PageModel::findById($pageId);
-		$objOtherPages = \Database::getInstance()->prepare("SELECT * FROM tl_page WHERE pid=? AND type='regular' AND hide_in_onepage=''")->execute($objPage->pid);
+		$objOtherPages = \Database::getInstance()->prepare("SELECT * FROM tl_page WHERE pid=? AND type='regular' AND hide_in_onepage='' ORDER BY sorting")->execute($objPage->pid);
 		if($objOtherPages->numRows){
 			while($objOtherPages->next()){ // Iteration for page
 				$htmlPageArticles = '';
-				$objArticles = \ArticleModel::findPublishedByPidAndColumn($objOtherPages->id, $column);
+				$objArticles = \ArticleModel::findPublishedByPidAndColumn($objOtherPages->id, $column, ['order' => 'sorting']);
 				if($objArticles){
 					foreach($objArticles as $objArticle){ // Iteration for article
 						$arrayArticleContent = [];
@@ -59,7 +59,7 @@ class OnePageAssorter
 						$objArticleTemplate->class = $arrayArticleCssId[1];
 						
 						// Find article contents
-						$objContents = \ContentModel::findPublishedByPidAndTable($objArticle->id, 'tl_article');
+						$objContents = \ContentModel::findPublishedByPidAndTable($objArticle->id, 'tl_article', ['order' => 'sorting']);
 						if($objContents){
 							foreach($objContents as $objContent){ // Iteration for content
 									$objRowTemp = \ContentModel::findByPk($objContent->id);
@@ -99,5 +99,30 @@ class OnePageAssorter
 		if($template->getName() == 'mod_navigation' || strpos($template->getName(), 'mod_navigation') === 0){
 			$template->setName('mod_navigation_onepage');
 		}
+	}
+	
+	/**
+	 * Replacing the navigation url's in sitemap and search
+	 *
+	 * @param	Array	$pages
+	 * @param	Int		$root
+	 * @param	Bool	$isSitemap
+	 * @param	String	$language
+	 *
+	 * @return 	array
+	 */
+	public function getSearchablePages(array $pages, int $root = null, bool $isSitemap = true, string $language = null): array{			
+		// Assort the links
+		foreach($pages as $pageIndex => $pageUrl){
+			$objPage = \PageModel::findById($pageIndex);
+			if(!$objPage->hide_in_onepage){
+				$arrayPageUrlParts = explode('/', $pageUrl);
+				$lastIndex = (count($arrayPageUrlParts) - 1);
+				$urlSlug = str_replace('.html', '', $arrayPageUrlParts[$lastIndex]);
+				$arrayPageUrlParts[$lastIndex] = '#' . $urlSlug;
+				$pages[$pageIndex] = implode('/', $arrayPageUrlParts);
+			}
+		}
+		return $pages;
 	}
 }
