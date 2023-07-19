@@ -118,9 +118,11 @@ class OnePageAssorter
 			if(!$objPage->hide_in_onepage){
 				$arrayPageUrlParts = explode('/', $pageUrl);
 				$lastIndex = (count($arrayPageUrlParts) - 1);
-				$urlSlug = str_replace('.html', '', $arrayPageUrlParts[$lastIndex]);
-				$arrayPageUrlParts[$lastIndex] = '#' . $urlSlug;
-				$pages[$pageIndex] = implode('/', $arrayPageUrlParts);
+				if($arrayPageUrlParts[$lastIndex]){
+					$urlSlug = str_replace('.html', '', $arrayPageUrlParts[$lastIndex]);
+					$arrayPageUrlParts[$lastIndex] = '#' . $urlSlug;
+					$pages[$pageIndex] = implode('/', $arrayPageUrlParts);
+				}
 			}
 		}
 		return $pages;
